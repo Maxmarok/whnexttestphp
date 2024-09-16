@@ -1,0 +1,53 @@
+services:
+  php-fpm:
+    build:
+      context: ./php8-fpm
+      dockerfile: ./Dockerfile
+    entrypoint: /entrypoint.sh
+    working_dir: /var/www/microservice
+    volumes:
+      - ./microservice:/var/www/microservice
+      - ./php8-fpm/www.conf:/usr/local/etc/php-fpm.d/www.conf
+    env_file: .env
+    networks:
+      - microservice
+    restart: unless-stopped
+
+  node:
+    build:
+      context: ./node
+      dockerfile: ./Dockerfile
+    entrypoint: /entrypoint.sh
+    working_dir: /var/www/microservice
+    volumes:
+      - ./microservice:/var/www/microservice
+    networks:
+      - microservice
+
+  mysql:
+    image: mysql:8.0.31
+    env_file: .env
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+      - ./mysql/conf.d:/etc/mysql/conf.d
+    networks:
+      - microservice
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./microservice:/var/www/microservice
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./logs:/var/log/microservice
+    ports:
+      - 80:80
+    networks:
+      - microservice
+    depends_on:
+      - php-fpm
+    restart: unless-stopped
+
+networks:
+  microservice:
