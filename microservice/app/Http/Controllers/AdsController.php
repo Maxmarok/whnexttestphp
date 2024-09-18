@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateAdRequest;
 use App\Http\Requests\GetAdRequest;
 use App\Http\Requests\GetAdsRequest;
+use App\Models\Ads;
 use App\Services\Ads\AdsInterface;
 use Illuminate\Http\JsonResponse;
 
@@ -41,7 +42,9 @@ class AdsController extends Controller
      */
     public function getAds(GetAdsRequest $request): JsonResponse
     {
-        $data = $this->ad->getAds($request->input('sort'), $request->input('type'));
+        $sort = $request->input('sort') ?? Ads::DEFAULT_SORT;
+        $type = $request->input('type') ?? Ads::DEFAULT_TYPE;
+        $data = $this->ad->getAds($sort, $type);
 
         return response()->json([
             'success' => true,

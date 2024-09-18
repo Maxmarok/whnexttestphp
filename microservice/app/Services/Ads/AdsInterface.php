@@ -21,7 +21,7 @@ interface AdsInterface
      * @param string $type Тип сортировки
      * @return \Illuminate\Pagination\LengthAwarePaginator;
      */
-    public function getAds(string $sort = Ads::DEFAULT_SORT, string $type = Ads::DEFAULT_TYPE): LengthAwarePaginator;
+    public function getAds(string $sort, string $type): LengthAwarePaginator;
 
     /**
      * Создание нового объявления

@@ -19,7 +19,7 @@ class AdsService implements AdsInterface
     /**
      * {@inheritDoc}
      */
-    public function getAds(string $sort = Ads::DEFAULT_SORT, string $type = Ads::DEFAULT_TYPE): LengthAwarePaginator
+    public function getAds(string $sort, string $type): LengthAwarePaginator
     {
         return Ads::orderBy($sort, $type)->fields()->paginate(Ads::PAGE_LIMIT);
     }
