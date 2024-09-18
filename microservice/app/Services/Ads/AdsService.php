@@ -4,7 +4,7 @@ namespace App\Services\Ads;
 
 use App\Models\Ads;
 use Exception;
-use Illuminate\Pagination\CursorPaginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AdsService implements AdsInterface
 {
@@ -19,9 +19,9 @@ class AdsService implements AdsInterface
     /**
      * {@inheritDoc}
      */
-    public function getAds(string $sort = Ads::DEFAULT_SORT, string $type = Ads::DEFAULT_TYPE): CursorPaginator
+    public function getAds(string $sort = Ads::DEFAULT_SORT, string $type = Ads::DEFAULT_TYPE): LengthAwarePaginator
     {
-        return Ads::orderBy($sort, $type)->fields()->cursorPaginate(Ads::PAGE_LIMIT);
+        return Ads::orderBy($sort, $type)->fields()->paginate(Ads::PAGE_LIMIT);
     }
 
     /**

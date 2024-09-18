@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CreateAdRequest;
 use App\Http\Requests\GetAdRequest;
 use App\Http\Requests\GetAdsRequest;
-use App\Models\Ads;
 use App\Services\Ads\AdsInterface;
 use Illuminate\Http\JsonResponse;
 

@@ -40,7 +40,7 @@ class Ads extends Model
      */
     public function scopeFields(Builder $query, bool $fields = false): void
     {
-        $arr = ['title', 'price', 'photo'];
+        $arr = ['id', 'title', 'price', 'photo'];
 
         if($fields) {
             $arr = array_merge($arr, ['photos', 'description']);

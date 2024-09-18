@@ -3,7 +3,7 @@
 namespace App\Services\Ads;
 
 use App\Models\Ads;
-use Illuminate\Pagination\CursorPaginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 interface AdsInterface
 {
@@ -19,9 +19,9 @@ interface AdsInterface
      * Получение списка объявления с возможностью сортировки
      * @param string $sort Поле сортировки
      * @param string $type Тип сортировки
-     * @return \Illuminate\Pagination\CursorPaginator;
+     * @return \Illuminate\Pagination\LengthAwarePaginator;
      */
-    public function getAds(string $sort = Ads::DEFAULT_SORT, string $type = Ads::DEFAULT_TYPE): CursorPaginator;
+    public function getAds(string $sort = Ads::DEFAULT_SORT, string $type = Ads::DEFAULT_TYPE): LengthAwarePaginator;
 
     /**
      * Создание нового объявления
